@@ -1,0 +1,29 @@
+ChatGPT said:
+Memory updated
+Awesome! Here's a list of popular Bitmask DP problems and interview-style bitmask tricks you should definitely explore:
+
+💡 Bitmask DP Problems (Classic & Interview-Favorite)
+Problem	Description	Platform
+✅ Travelling Salesman Problem (TSP)	Find the minimum path to visit all cities and return to start using DP + bitmask	Standard
+🔒 LC 847. Shortest Path Visiting All Nodes	Bitmask + BFS or DP to visit all nodes in a graph	Leetcode
+🎓 Partition into K Equal Sum Subsets	Use bitmask to track taken elements, DP to store valid partitions	Leetcode 698
+🧠 LC 1125. Smallest Sufficient Team	Bitmask to represent required skills and teams	Leetcode
+🧊 Count Number of Valid Pickup and Delivery Options	DP + permutations with constraints	Leetcode 1359
+⚔️ Minimum Cost to Connect Two Groups of Points	Bitmask to track group coverage	Leetcode 1595
+💰 Assignment Problem	Assign tasks to workers with minimum cost (classic Bitmask DP)	Competitive
+🎯 Bitmask Tricks for Interviews
+Trick	Description	Code
+Check if k-th bit is set	(num & (1 << k)) != 0	✅
+Set the k-th bit	`num	= (1 << k)`
+Unset the k-th bit	num &= ~(1 << k)	✅
+Toggle the k-th bit	num ^= (1 << k)	✅
+Count set bits (population count)	Integer.bitCount(num)	✅
+Subset iteration over bitmask mask	for (int sub = mask; sub > 0; sub = (sub - 1) & mask)	🔥 Subset DP
+🧪 Want a Real Challenge?
+Try this one:
+
+🔥 "Find the number of ways to color a graph so that no two adjacent nodes have the same color using k colors."
+
+Use bitmask to represent coloring state.
+DP[state][node] to track transitions.
+Hard, but beautiful.
