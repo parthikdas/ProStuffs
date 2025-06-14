@@ -2,11 +2,7 @@ package CP_Patterns.bitmask;
 
 import java.util.*;
 /*
-    Subarray - need to contagious : [1,2],[2,3],[1,2,3] -> For an array of length n, there are n * (n + 1) / 2 subarrays. Here, 3 * 4 / 2 = 6.
-                We dont need recursion or backtrack for subarray just use 2 loop
-    Subsequence - need not to be contagious : [1,3],[2]
-    Subset - like subsequence but here order does not matter like [1,3] is same as [3,1] unlike subsequence
-
+   
  Use a loop inside recursion when you're exploring multiple branching choices at each level, like:
         Subset generation
         Combinations (like nCr)
@@ -40,7 +36,7 @@ import java.util.*;
     And we store itd freq
  */
 
-public class subarray {
+public class subarrayLeetcode {
     // Below is brute force and its slow
     public static void getAllSubarrays(int[] a, List<String> l) { // O(n^2) - brute force, good for small input
         for(int i = 0; i < a.length; i++) {

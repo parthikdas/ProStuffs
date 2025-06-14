@@ -1,0 +1,37 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class ScalableBloomFilter {
+    private List<BloomFilter> filters = new ArrayList<>();
+    private int bitSetSize;
+    private int numHashFunctions;
+    private double growthRate;
+
+    public ScalableBloomFilter(int bitSetSize, int numHashFunctions, double growthRate) {
+        this.bitSetSize = bitSetSize;
+        this.numHashFunctions = numHashFunctions;
+        this.growthRate = growthRate;
+        filters.add(new BloomFilter(bitSetSize, numHashFunctions));
+    }
+
+    public void add(String item) {
+        if (filters.get(filters.size() - 1).mightContain(item)) {
+            return;
+        }
+
+        BloomFilter current = filters.get(filters.size() - 1);
+        current.add(item);
+
+        if (/* saturation logic, like bitSet > 50% full */ false) {
+            bitSetSize *= growthRate;
+            filters.add(new BloomFilter(bitSetSize, numHashFunctions));
+        }
+    }
+
+    public boolean mightContain(String item) {
+        for (BloomFilter bf : filters) {
+            if (bf.mightContain(item)) return true;
+        }
+        return false;
+    }
+}

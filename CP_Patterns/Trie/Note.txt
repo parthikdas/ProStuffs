@@ -1,0 +1,39 @@
+2 forms :
+  1. If we make a array as pointer then we can store the end result in string at the index. Eg: string as of now "kk" and letter is d so index 3 now in that value is "kkd".
+  So we store the result and also with the help of index we know which letter we put.
+  - Very fast access (O(1)) to child nodes using character indexing.
+  - When speed is critical and memory is acceptable.
+  - Good when you need to keep track of paths explicitly for things like autocomplete, dictionary suggestions
+
+  2. We dont define the array size, we use hashmap to store the char and along with the nodes
+  TrieNode {
+    Boolean isEndOfWord = false; 
+    Map<Character, TrieNode> children = new HashMap<>();
+  }
+    - Memory efficient, especially when many characters are unused (sparse data).
+    - Easier to use for larger alphabets or Unicode characters.
+    - You don’t store the resulting word/path at each node.
+    - When you want memory efficiency or support for a larger/dynamic character set.
+    - Useful in scenarios like pattern matching, word filtering, etc.
+    - Lookup and insertion O(1) but mem is higher compared to list, So we can use that also
+
+  Conclusion if mem is concern then 2nd option or we can go for 1st
+
+  1st way is ArrWay.java
+  2nd way is MapWay.java
+
+
+
+CountPrefixSuffixPair2 - zfunc and rolling hash https://leetcode.com/problems/count-prefix-and-suffix-pairs-ii/solutions/4744437/z-function-and-rolling-hash-o-nm-c/
+139. Word Break
+211. Design Add and Search Words Data Structure
+676. Implement Magic Dictionary
+720. Longest Word in Dictionary
+745. Prefix and Suffix Search
+// Put in project section
+642. Design Search Autocomplete System - https://algo.monster/liteproblems/642
+In webiste they have used PQ think of using LinkedHashMap LRU property
+
+
+Note: to signify end of word we can use boolean if we dont need the word else if we need it we can use string
+and at end of word we assign last node s as the value so all others will be null.

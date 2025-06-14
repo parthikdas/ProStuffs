@@ -1,0 +1,51 @@
+public class CountingBloomFilter {
+    private int[] counters;
+    private int size;
+    private int[] seeds;
+
+    public CountingBloomFilter(int size, int numHashFunctions) {
+        this.size = size;
+        this.counters = new int[size];
+        this.seeds = new int[numHashFunctions];
+        for (int i = 0; i < numHashFunctions; i++) {
+            seeds[i] = new Random().nextInt();
+        }
+    }
+
+    private int hash(String item, int seed) {
+        int result = 0;
+        for (char c : item.toCharArray()) {
+            result = seed * result + c;
+        }
+        return Math.abs(result % size);
+    }
+
+    public void add(String item) {
+        for (int seed : seeds) {
+            int index = hash(item, seed);
+            counters[index]++;
+        }
+    }
+
+    public void remove(String item) {
+        for (int seed : seeds) {
+            int index = hash(item, seed);
+            if (counters[index] > 0) counters[index]--;
+        }
+    }
+
+    public boolean mightContain(String item) {
+        for (int seed : seeds) {
+            int index = hash(item, seed);
+            if (counters[index] == 0) return false;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        CountingBloomFilter cbf = new CountingBloomFilter(1000, 3);
+        cbf.add("apple");
+        cbf.remove("apple");
+        System.out.println(cbf.mightContain("apple"));  // false
+    }
+}

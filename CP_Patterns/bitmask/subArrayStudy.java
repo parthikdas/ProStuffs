@@ -2,6 +2,7 @@ package CP_Patterns.bitmask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -29,9 +30,11 @@ import java.util.Map;
              10. Min sum subarray - modified kadane
              11. Max length subarray with sum k
              12. Max length subarray with equal 0s, 1s
+             13. 1399. Count Largest Group
+             14. subarray with no dup - slide
              
  */
-public class trying {
+public class subArrayStudy {
     // Printing subarray using loop
     public static void printSubArrayUsingLoop(int[] a) {
         List<String> list = new ArrayList<>();
@@ -229,6 +232,57 @@ public class trying {
         }
         System.out.println(max);
     }
+    // -----------------------------------------------------------------
+    public int countLargestGroup(int n) {
+        Map<Integer, Integer> mpp = new HashMap<>();
+        int maxi = 0, count = 0;
+        for (int i = 1; i <= n; i++) {
+            int x = digsum(i);
+            mpp.put(x, mpp.getOrDefault(x, 0) + 1);
+            maxi = Math.max(maxi, mpp.get(x));
+        }
+        for (int val : mpp.values()) if (val == maxi) count++;
+        return count;
+    }
+    private int digsum(int n) {
+        int sum = 0;
+        while (n > 0) {
+            sum += n % 10;
+            n /= 10;
+        }
+        return sum;
+    }
+    // -----------------------------------------------------------------
+    
+    // Function to calculate the sum of all subarrays with no duplicates
+    public static int subarraySumNoDup(int[] nums) {
+        int n = nums.length;
+        int sum = 0;
+        
+        // Initialize sliding window
+        HashSet<Integer> set = new HashSet<>();
+        int left = 0; // Left pointer of the window
+        
+        // Traverse the array with the right pointer
+        for (int right = 0; right < n; right++) {
+            // If duplicate is found, move the left pointer
+            while (set.contains(nums[right])) {
+                set.remove(nums[left]);
+                left++;
+            }
+            
+            // Add current element to the set
+            set.add(nums[right]);
+            
+            // Calculate the sum of subarrays ending at index 'right'
+            // For every index 'right', the number of subarrays ending at 'right' and having no duplicates is (right - left + 1)
+            sum += (right - left + 1);
+        }
+        
+        return sum;
+    }
+    
+
     public static void main(String[] args) {
         int a[] = {2, -8, 3, -2, 4, -10};
         // printSubArrayUsingLoop(a);
